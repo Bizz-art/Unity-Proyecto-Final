@@ -160,18 +160,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 31521110}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c316fe0cc378e14296a17cefc33a386, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ade618559734e94198bf1e4a43cc92d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comicPages:
-  - {fileID: 21300000, guid: 6cf71bdb89b88104099669ea76dd5dd9, type: 3}
-  - {fileID: 21300000, guid: 753e84b212d8da04fa78b22eb8486148, type: 3}
-  - {fileID: 21300000, guid: 7704d24bc3874cd4d8fee039fa8eb57e, type: 3}
-  - {fileID: 21300000, guid: cdd4c8f77604144428b23f4cac02dba9, type: 3}
+  comicPages: []
   displayImage: {fileID: 1874925139}
   clickText: {fileID: 1941155887}
-  audioSource: {fileID: 1876777014}
-  pageTurnSound: {fileID: 8300000, guid: 7487a711c7b7fb040a22811a98212e39, type: 3}
+  audioSource: {fileID: 0}
+  pageTurnSound: {fileID: 0}
   blinkInterval: 0.5
 --- !u!1 &75975824
 GameObject:
@@ -243,8 +239,8 @@ Canvas:
   m_GameObject: {fileID: 75975824}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 812272211}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -440,6 +436,7 @@ GameObject:
   - component: {fileID: 812272212}
   - component: {fileID: 812272211}
   - component: {fileID: 812272210}
+  - component: {fileID: 812272213}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -521,6 +518,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &812272213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812272209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &904386753
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +668,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 047f87998c307e944b93b925be7bab6e, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 047f87998c307e944b93b925be7bab6e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.026
@@ -831,7 +872,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7487a711c7b7fb040a22811a98212e39, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 7487a711c7b7fb040a22811a98212e39, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
