@@ -4,7 +4,7 @@ public class EnemySpawnManager : MonoBehaviour
 {
     [Header("Configuración del Spawn")]
     public GameObject enemyPrefab;
-    public int cantidad = 3;
+    private int cantidad;
     public bool activarSoloUnaVez = true;
 
     private bool yaActivado = false;
@@ -20,10 +20,11 @@ public class EnemySpawnManager : MonoBehaviour
 
     void SpawnEnemigos()
     {
+        cantidad = Random.Range(1, 3+1);
         for (int i = 0; i < cantidad; i++)
         {
             // Instanciar con un pequeño desplazamiento para evitar solapamiento
-            Vector3 offset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+            Vector3 offset = new Vector3(Random.Range(-4f, 4f), 0, Random.Range(-4f, 4f));
             Vector3 spawnPosition = transform.position + offset;
 
             Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);

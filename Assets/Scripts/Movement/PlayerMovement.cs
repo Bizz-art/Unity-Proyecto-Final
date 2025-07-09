@@ -1,18 +1,29 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-[RequireComponent(typeof(CharacterController))]
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float moveSpeed = 3f;
-    public float rotationSpeed = 120f; // Grados por segundo
+    public float rotationSpeed = 120f;
+    [Header("Gravedad")]
+    public float gravity = -9.81f;
+    public float groundedOffset = -0.1f; // Corrige pequeñas inconsistencias de detección
+    public float groundedRadius = 0.3f;
+    public LayerMask groundLayers;
 
     private CharacterController controller;
     private InputSystem_Actions inputActions;
     private float moveInput;
     private float rotateInput;
     private PlayerCombatMode combatScript;
+
+    private float verticalVelocity;
+    private bool isGrounded;
+
+    [Header("Ground Check")]
+    public Transform groundCheck;
 
     private void Awake()
     {
@@ -45,6 +56,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (combatScript != null && combatScript.IsInCombatMode())
             return;
+
+        CheckGround();
+        ApplyGravity();
         Rotate();
         Move();
     }
@@ -57,6 +71,35 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         Vector3 forward = transform.forward * moveInput;
-        controller.Move(forward * moveSpeed * Time.deltaTime);
+        Vector3 move = forward * moveSpeed;
+
+        move.y = verticalVelocity;
+
+        controller.Move(move * Time.deltaTime);
+    }
+
+    private void CheckGround()
+    {
+        if (groundCheck != null)
+        {
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
+        }
+        else
+        {
+            isGrounded = controller.isGrounded;
+        }
+    }
+
+    private void ApplyGravity()
+    {
+        if (isGrounded && verticalVelocity < 0)
+        {
+            verticalVelocity = -2f; // Mantener al personaje "pegado" al suelo
+        }
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime;
+        }
     }
 }
+
