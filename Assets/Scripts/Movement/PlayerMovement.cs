@@ -23,9 +23,12 @@ public class PlayerMovement : MonoBehaviour
 
     private float verticalVelocity;
     private bool isGrounded;
+    private bool playerInZone = false;
+    public CameraTrigger targetCameraTrigger;
 
     [Header("Ground Check")]
     public Transform groundCheck;
+
 
     private void Awake()
     {
@@ -33,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         inputActions = new InputSystem_Actions();
         combatScript = GetComponent<PlayerCombatMode>();
+        
     }
 
     private void OnEnable()
@@ -40,13 +44,15 @@ public class PlayerMovement : MonoBehaviour
         inputActions.Player.Enable();
         inputActions.Player.Move.performed += ctx => ReadInput(ctx.ReadValue<Vector2>());
         inputActions.Player.Move.canceled += ctx => ReadInput(Vector2.zero);
-     
+        inputActions.Player.Interact.performed += OnInteract;
+
     }
 
     private void OnDisable()
     {
         inputActions.Player.Move.performed -= ctx => ReadInput(ctx.ReadValue<Vector2>());
         inputActions.Player.Move.canceled -= ctx => ReadInput(Vector2.zero);
+        inputActions.Player.Interact.performed -= OnInteract;
         inputActions.Player.Disable();
     }
 
@@ -60,13 +66,25 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (combatScript != null && combatScript.IsInCombatMode())
+        if (PuzzleCameraTrigger.EnPuzzle)
+        {
+            SetMovementAnimations(Vector2.zero); // Asegura que se detenga animación
             return;
+        }
+
+        if (combatScript != null && combatScript.IsInCombatMode())
+        {
+            SetMovementAnimations(Vector2.zero);
+            return;
+        }
 
         CheckGround();
         ApplyGravity();
         Rotate();
         Move();
+
+        // Aquí se actualiza la animación solo si el jugador realmente puede moverse
+        SetMovementAnimations(new Vector2(rotateInput, moveInput));
     }
 
     private void Rotate()
@@ -84,7 +102,11 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(move * Time.deltaTime);
     }
 
-  
+    private void SetMovementAnimations(Vector2 input)
+    {
+        animator.SetBool("isWalking", input.y > 0.1f);
+        animator.SetBool("isWalkingBackwards", input.y < -0.1f);
+    }
     private void CheckGround()
     {
         if (groundCheck != null)
@@ -106,6 +128,30 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             verticalVelocity += gravity * Time.deltaTime;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PuzzleZone")) // O usa "CameraZone" o el tag que uses
+        {
+            playerInZone = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("PuzzleZone"))
+        {
+            playerInZone = false;
+        }
+    }
+
+    private void OnInteract(InputAction.CallbackContext ctx)
+    {
+        if (playerInZone && targetCameraTrigger != null)
+        {
+            targetCameraTrigger.enabled = true;
         }
     }
 }
