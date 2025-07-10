@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "InputSystem_Actions",
     "maps": [
         {
@@ -45,6 +46,15 @@
                     "name": "RecogerItem",
                     "type": "Button",
                     "id": "72c47d04-3355-4c8f-a0e1-5974b81311c9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "8f387013-dc75-46b8-a647-e6bef4f8289d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -225,6 +235,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "RecogerItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a9c0c811-18a8-48eb-8e8a-aec8898afdc4",
+                    "path": "<Keyboard>/#(E)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
