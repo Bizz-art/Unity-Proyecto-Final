@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 3f;
     public float rotationSpeed = 120f;
+    private Animator animator;
+
     [Header("Gravedad")]
     public float gravity = -9.81f;
     public float groundedOffset = -0.1f; // Corrige pequeñas inconsistencias de detección
@@ -28,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
         inputActions = new InputSystem_Actions();
         combatScript = GetComponent<PlayerCombatMode>();
     }
@@ -37,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
         inputActions.Player.Enable();
         inputActions.Player.Move.performed += ctx => ReadInput(ctx.ReadValue<Vector2>());
         inputActions.Player.Move.canceled += ctx => ReadInput(Vector2.zero);
+     
     }
 
     private void OnDisable()
@@ -50,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = input.y;
         rotateInput = input.x;
+        animator.SetBool("isWalking", input.y > 0);
+        animator.SetBool("isWalkingBackwards", input.y < 0);
     }
 
     private void Update()
@@ -78,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(move * Time.deltaTime);
     }
 
+  
     private void CheckGround()
     {
         if (groundCheck != null)
