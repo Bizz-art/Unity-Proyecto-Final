@@ -66,13 +66,25 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (combatScript != null && combatScript.IsInCombatMode())
+        if (PuzzleCameraTrigger.EnPuzzle)
+        {
+            SetMovementAnimations(Vector2.zero); // Asegura que se detenga animación
             return;
+        }
+
+        if (combatScript != null && combatScript.IsInCombatMode())
+        {
+            SetMovementAnimations(Vector2.zero);
+            return;
+        }
 
         CheckGround();
         ApplyGravity();
         Rotate();
         Move();
+
+        // Aquí se actualiza la animación solo si el jugador realmente puede moverse
+        SetMovementAnimations(new Vector2(rotateInput, moveInput));
     }
 
     private void Rotate()
@@ -90,7 +102,11 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(move * Time.deltaTime);
     }
 
-  
+    private void SetMovementAnimations(Vector2 input)
+    {
+        animator.SetBool("isWalking", input.y > 0.1f);
+        animator.SetBool("isWalkingBackwards", input.y < -0.1f);
+    }
     private void CheckGround()
     {
         if (groundCheck != null)

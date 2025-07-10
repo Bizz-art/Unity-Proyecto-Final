@@ -700,6 +700,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puzzleCamera: {fileID: 331504639}
   puzzleCameraPriority: 20
+  bodyMerged: {fileID: 1448995411}
+  metaRig: {fileID: 1216548857}
 --- !u!1 &303876518
 GameObject:
   m_ObjectHideFlags: 0
@@ -2663,6 +2665,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214198568}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1216548857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 229429590423734839, guid: 5a1b3e5c776c7294cbe3c1699033cda0, type: 3}
+  m_PrefabInstance: {fileID: 4774427625532657954}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1270121874
 GameObject:
   m_ObjectHideFlags: 0
@@ -3061,6 +3068,11 @@ Transform:
   - {fileID: 1820281583}
   m_Father: {fileID: 2053512716}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1448995411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1659991802852960190, guid: 5a1b3e5c776c7294cbe3c1699033cda0, type: 3}
+  m_PrefabInstance: {fileID: 4774427625532657954}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1548765041 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4d3c66b06f151b74e9149d8f9de54f74, type: 3}
@@ -4969,6 +4981,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 229429590423734839, guid: 5a1b3e5c776c7294cbe3c1699033cda0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 388512213722041497, guid: 5a1b3e5c776c7294cbe3c1699033cda0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1659991802852960190, guid: 5a1b3e5c776c7294cbe3c1699033cda0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5084550238816575560, guid: 5a1b3e5c776c7294cbe3c1699033cda0, type: 3}
       propertyPath: targetingUI
       value: 
