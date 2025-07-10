@@ -8,10 +8,11 @@ public class PlayerCombatMode : MonoBehaviour
 
    [Header("References")]
     public GameObject targetingUI; // Opcional: UI o retícula de combate
-
+    private Animator animator;
     private void Awake()
     {
         inputActions = new InputSystem_Actions();
+        animator = GetComponent<Animator>();
     }
 
 
@@ -33,6 +34,8 @@ public class PlayerCombatMode : MonoBehaviour
 
         if (targetingUI != null)
             targetingUI.SetActive(isInCombatMode);
+        bool currentState = animator.GetBool("hasKnife");
+        animator.SetBool("hasKnife", !currentState);
     }
 
     public bool IsInCombatMode()

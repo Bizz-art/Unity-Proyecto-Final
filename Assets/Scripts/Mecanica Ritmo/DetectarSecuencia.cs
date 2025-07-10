@@ -19,11 +19,11 @@ public class DetectarSecuencia : MonoBehaviour
     private void Awake()
     {
         inputActions = new InputSystem_Actions();
-        bpmScript = FindObjectOfType<BPM>();
+        bpmScript = FindFirstObjectByType<BPM>();
 
         if (bpmScript == null)
         {
-            Debug.LogError("❌ No se encontró un objeto con el script BPM en la escena.");
+           Debug.LogError("❌ No se encontró un objeto con el script BPM en la escena.");
         }
     }
 
