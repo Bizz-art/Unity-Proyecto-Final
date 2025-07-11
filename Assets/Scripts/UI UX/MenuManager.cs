@@ -28,7 +28,7 @@ public class MainMenuManager : MonoBehaviour
     public void OnExitPressed()
     {
         Application.Quit();
-        Debug.Log("Game is exiting..."); // Para ver en la consola de Unity
+        
     }
 
 }
