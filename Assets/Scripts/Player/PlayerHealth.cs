@@ -4,6 +4,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth = 3f;
     private float currentHealth;
+    public GameObject[] indicadorSalud;
 
     private void Start()
     {
@@ -22,6 +23,14 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth -= amount;
         currentHealth = Mathf.Max(currentHealth, 0f);
+        foreach (GameObject icon in indicadorSalud)
+        {
+            icon.SetActive(false);
+        }
+        if (currentHealth > 0)
+        {
+            indicadorSalud[(int)(currentHealth - 1)].SetActive(true);
+        }
         Debug.Log("Player hit! Current health: " + currentHealth);
 
         if (currentHealth <= 0)

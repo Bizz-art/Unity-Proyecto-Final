@@ -1775,6 +1775,7 @@ GameObject:
   - component: {fileID: 1161350587843041134}
   - component: {fileID: 2886879387163790628}
   - component: {fileID: 8192337678170093874}
+  - component: {fileID: 3019441483141311473}
   m_Layer: 0
   m_Name: PuzzleRompecabezas
   m_TagString: Untagged
@@ -1836,6 +1837,22 @@ MonoBehaviour:
   gridSize: {x: 2, y: 3}
   selectorVisual: {fileID: 3277562741822875180}
   puzzleManager: {fileID: 2886879387163790628}
+--- !u!114 &3019441483141311473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8925022944174929608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dfd5c051f5f91c4481266882091b699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puzzleCamera: {fileID: 0}
+  puzzleCameraPriority: 20
+  bodyMerged: {fileID: 0}
+  metaRig: {fileID: 0}
 --- !u!1 &9060452292975863443
 GameObject:
   m_ObjectHideFlags: 0
