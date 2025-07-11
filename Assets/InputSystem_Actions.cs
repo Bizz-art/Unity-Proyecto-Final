@@ -137,6 +137,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 },
                 {
                     ""name"": ""Interact"",
@@ -146,6 +147,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
                 }
@@ -327,6 +330,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 },
                 {
                     ""name"": """",
@@ -338,6 +342,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
                 }
@@ -931,7 +937,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_EnterCombat = m_Player.FindAction("EnterCombat", throwIfNotFound: true);
         m_Player_RecogerItem = m_Player.FindAction("RecogerItem", throwIfNotFound: true);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
         // UI
@@ -1033,7 +1042,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_EnterCombat;
     private readonly InputAction m_Player_RecogerItem;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     private readonly InputAction m_Player_Interact;
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     /// <summary>
@@ -1069,10 +1081,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @RecogerItem => m_Wrapper.m_Player_RecogerItem;
         /// <summary>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         /// Provides access to the underlying input action "Player/Interact".
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         /// <summary>
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
         /// Provides access to the underlying input action map instance.
@@ -1116,9 +1131,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @RecogerItem.performed += instance.OnRecogerItem;
             @RecogerItem.canceled += instance.OnRecogerItem;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
         }
@@ -1148,9 +1166,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @RecogerItem.performed -= instance.OnRecogerItem;
             @RecogerItem.canceled -= instance.OnRecogerItem;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
         }
@@ -1489,6 +1510,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRecogerItem(InputAction.CallbackContext context);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         /// <summary>
         /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -1496,6 +1518,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     }
