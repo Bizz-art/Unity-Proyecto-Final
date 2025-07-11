@@ -1,13 +1,34 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuManager : MonoBehaviour
+public class MainMenuManager : MonoBehaviour
 {
-    public void NewGame(){
-        SceneManager.LoadScene("Intro");
+    public AudioSource audioSource; // Arrastra aquí tu AudioSource con el sonido
+    public AudioClip startSound;    // Asigna el clip aquí
+    public string sceneToLoad = "Game"; // O el nombre de tu escena
+
+    private bool isStarting = false;
+
+    public void OnNewGamePressed()
+    {
+        if (!isStarting)
+        {
+            StartCoroutine(PlaySoundAndStart());
+        }
     }
 
-    public void QuitGame(){
-        Application.Quit();
+    private IEnumerator PlaySoundAndStart()
+    {
+        isStarting = true;
+        audioSource.PlayOneShot(startSound);
+        yield return new WaitForSeconds(startSound.length);
+        SceneManager.LoadScene(sceneToLoad);
     }
+    public void OnExitPressed()
+    {
+        Application.Quit();
+        Debug.Log("Game is exiting..."); // Para ver en la consola de Unity
+    }
+
 }

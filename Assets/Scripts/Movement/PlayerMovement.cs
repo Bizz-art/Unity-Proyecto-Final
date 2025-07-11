@@ -6,14 +6,19 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float moveSpeed = 3f;
+    public float runSpeed = 6f; // velocidad para correr
     public float rotationSpeed = 120f;
     private Animator animator;
 
     [Header("Gravedad")]
     public float gravity = -9.81f;
-    public float groundedOffset = -0.1f; // Corrige pequeñas inconsistencias de detección
+    public float groundedOffset = -0.1f;
     public float groundedRadius = 0.3f;
     public LayerMask groundLayers;
+
+    [Header("Audio")]
+    public AudioSource stepAudioSource; // AudioSource con sonido de pasos caminando
+    public AudioSource runAudioSource;  // AudioSource con sonido de pasos corriendo
 
     private CharacterController controller;
     private InputSystem_Actions inputActions;
@@ -29,14 +34,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ground Check")]
     public Transform groundCheck;
 
-
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         inputActions = new InputSystem_Actions();
         combatScript = GetComponent<PlayerCombatMode>();
-        
     }
 
     private void OnEnable()
@@ -45,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
         inputActions.Player.Move.performed += ctx => ReadInput(ctx.ReadValue<Vector2>());
         inputActions.Player.Move.canceled += ctx => ReadInput(Vector2.zero);
         inputActions.Player.Interact.performed += OnInteract;
-
     }
 
     private void OnDisable()
@@ -68,13 +70,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (PuzzleCameraTrigger.EnPuzzle)
         {
-            SetMovementAnimations(Vector2.zero); // Asegura que se detenga animación
+            SetMovementAnimations(Vector2.zero);
+            StopStepSounds();
             return;
         }
 
         if (combatScript != null && combatScript.IsInCombatMode())
         {
             SetMovementAnimations(Vector2.zero);
+            StopStepSounds();
             return;
         }
 
@@ -82,8 +86,8 @@ public class PlayerMovement : MonoBehaviour
         ApplyGravity();
         Rotate();
         Move();
+        HandleStepSounds();
 
-        // Aquí se actualiza la animación solo si el jugador realmente puede moverse
         SetMovementAnimations(new Vector2(rotateInput, moveInput));
     }
 
@@ -94,8 +98,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+        bool isRunning = Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed;
+        float currentSpeed = isRunning ? runSpeed : moveSpeed;
+
         Vector3 forward = transform.forward * moveInput;
-        Vector3 move = forward * moveSpeed;
+        Vector3 move = forward * currentSpeed;
 
         move.y = verticalVelocity;
 
@@ -107,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isWalking", input.y > 0.1f);
         animator.SetBool("isWalkingBackwards", input.y < -0.1f);
     }
+
     private void CheckGround()
     {
         if (groundCheck != null)
@@ -123,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded && verticalVelocity < 0)
         {
-            verticalVelocity = -2f; // Mantener al personaje "pegado" al suelo
+            verticalVelocity = -2f;
         }
         else
         {
@@ -131,9 +139,45 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void HandleStepSounds()
+    {
+        bool isMoving = Mathf.Abs(moveInput) > 0.1f && isGrounded;
+        bool isRunning = Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed;
+
+        if (isMoving)
+        {
+            if (isRunning)
+            {
+                if (!runAudioSource.isPlaying)
+                {
+                    stepAudioSource.Stop();
+                    runAudioSource.Play();
+                }
+            }
+            else
+            {
+                if (!stepAudioSource.isPlaying)
+                {
+                    runAudioSource.Stop();
+                    stepAudioSource.Play();
+                }
+            }
+        }
+        else
+        {
+            StopStepSounds();
+        }
+    }
+
+    private void StopStepSounds()
+    {
+        if (stepAudioSource.isPlaying) stepAudioSource.Stop();
+        if (runAudioSource.isPlaying) runAudioSource.Stop();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PuzzleZone")) // O usa "CameraZone" o el tag que uses
+        if (other.CompareTag("PuzzleZone"))
         {
             playerInZone = true;
         }
@@ -154,5 +198,19 @@ public class PlayerMovement : MonoBehaviour
             targetCameraTrigger.enabled = true;
         }
     }
-}
 
+    public bool IsGrounded()
+    {
+        return isGrounded;
+    }
+
+    public float GetMoveInput()
+    {
+        return moveInput;
+    }
+
+    public bool IsRunning()
+    {
+        return Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed;
+    }
+}
