@@ -36,6 +36,14 @@ public class PlayerCombatMode : MonoBehaviour
             targetingUI.SetActive(isInCombatMode);
         bool currentState = animator.GetBool("hasKnife");
         animator.SetBool("hasKnife", !currentState);
+
+        EnemyMovement[] enemigos = FindObjectsOfType<EnemyMovement>();
+        foreach (EnemyMovement enemigo in enemigos)
+        {
+            Debug.Log(enemigo);
+            enemigo.isPaused = isInCombatMode;// Apagar movimiento si está en combate
+        }
+
     }
 
     public bool IsInCombatMode()

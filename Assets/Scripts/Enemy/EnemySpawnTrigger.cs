@@ -20,7 +20,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     void SpawnEnemigos()
     {
-        cantidad = Random.Range(1, 3+1);
+        cantidad = 1;//Random.Range(1, 3+1);
         for (int i = 0; i < cantidad; i++)
         {
             // Instanciar con un pequeño desplazamiento para evitar solapamiento

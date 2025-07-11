@@ -1,6 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DetectarSecuencia : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class DetectarSecuencia : MonoBehaviour
     private bool secuenciaActiva = false;
 
     public SecuenciaVisualizer visualizer;
+    [SerializeField] private Animator animator;
+    public Collider damageCollider;
     private void Awake()
     {
         inputActions = new InputSystem_Actions();
@@ -23,7 +26,7 @@ public class DetectarSecuencia : MonoBehaviour
 
         if (bpmScript == null)
         {
-           Debug.LogError("❌ No se encontró un objeto con el script BPM en la escena.");
+            Debug.LogError("❌ No se encontró un objeto con el script BPM en la escena.");
         }
     }
 
@@ -82,8 +85,7 @@ public class DetectarSecuencia : MonoBehaviour
 
             if (inputSequence.Count >= maxInputs)
             {
-                CheckSequence();
-                inputSequence.Clear();
+                StartCoroutine(FinalizarSecuenciaConRetraso());
             }
         }
         else
@@ -97,7 +99,10 @@ public class DetectarSecuencia : MonoBehaviour
     private void CheckSequence()
     {
         string combo = string.Join("-", inputSequence);
+        animator?.SetBool("isStabbing", true);
+        
         Debug.Log($"🎵 Combo detectado: {combo}");
+        StartCoroutine(FinalizarAnimacionAtaque());
 
         if (combo == "J-J-K-K")
         {
@@ -108,5 +113,23 @@ public class DetectarSecuencia : MonoBehaviour
         {
             Debug.Log("❓ Comando incorrecto");
         }
+    }
+
+    private IEnumerator FinalizarSecuenciaConRetraso()
+    {
+        yield return new WaitForSeconds(0.3f); // Espera para que el último input se vea
+
+        CheckSequence();                       // Validar secuencia
+        inputSequence.Clear();                 // Limpiar lista
+
+        visualizer?.Reiniciar();               // Ocultar los íconos visuales
+    }
+
+    private IEnumerator FinalizarAnimacionAtaque()
+    {
+        damageCollider.enabled = true;
+        yield return new WaitForSeconds(0.2f);
+        animator?.SetBool("isStabbing", false);
+        damageCollider.enabled = false;
     }
 }

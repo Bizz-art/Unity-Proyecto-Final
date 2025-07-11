@@ -20,9 +20,12 @@ public class BPM : MonoBehaviour
     void Start()
     {
         beatInterval = 60f / bpm;
+        //StartCoroutine(BeatLoop());
+    }
+    private void OnEnable()
+    {
         StartCoroutine(BeatLoop());
     }
-
     IEnumerator BeatLoop()
     {
         while (true)

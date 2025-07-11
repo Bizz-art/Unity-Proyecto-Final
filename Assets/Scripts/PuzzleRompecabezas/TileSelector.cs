@@ -14,7 +14,7 @@ public class TileSelector : MonoBehaviour
     void Awake()
     {
         inputActions = new InputSystem_Actions();
-        puzzleManager = FindObjectOfType<PuzzleManager>();
+        puzzleManager = FindFirstObjectByType<PuzzleManager>();
     }
 
     void OnEnable()

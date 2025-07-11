@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6880971261151904725}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,8 +123,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  chaseRange: 10
-  attackRange: 2
+  chaseRange: 200
+  attackRange: 100
+  chargeDuration: 0.1
+  minWaitTime: 0.1
+  maxWaitTime: 0.1
 --- !u!195 &6880971261151904725
 NavMeshAgent:
   m_ObjectHideFlags: 0
